@@ -13,6 +13,10 @@ video_source = 0
 label = Label(ventana,text="WEBCAM",font=15,bg='blue',fg='white')
 label.pack(side=TOP,fill=BOTH)
 canvas=Canvas(ventana,bg='red').pack()
+btnScreenshot=Button(ventana,text="Screenshot",width=30,bg='goldenrod2',
+                    activebackground='red')
+btnScreenshot.pack(anchor=CENTER,expand=True)
 
 ventana.mainloop()
+
 
