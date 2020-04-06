@@ -24,11 +24,11 @@ ima_h = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
 #ELEMENTOS.
 label = Label(ventana,text="CAM",font = 15,bg ='blue',fg ='white')
 label.pack(side=TOP,fill=BOTH)
-canvas = Canvas(ventana,bg ='red',width = ima_w,height = ima_h)
+canvas = Canvas(ventana,bg ='red',width=ima_w,height=ima_h)
 canvas.pack()
-btnScreenshot = Button(ventana,text = "Screenshot",width = 30,bg ='goldenrod2',
+btnScreenshot = Button(ventana,text="Screenshot",width=30,bg='goldenrod2',
                     activebackground='red')
-btnScreenshot.pack(anchor = CENTER,expand = True)
+btnScreenshot.pack(anchor=CENTER,expand=True)
 visor()
 ventana.mainloop()
 
