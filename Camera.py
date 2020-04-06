@@ -7,8 +7,8 @@ import time
 def update():
     global photo
     ret, frame = vid.read()
-    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    photo=ImageTk.PhotoImage(image=Image.fromarray(frame))#!!!!!!!!!!!!!!
+    real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    photo=ImageTk.PhotoImage(image=Image.fromarray(real_color))
     canvas.create_image(0,0,image=photo,anchor=NW)#0,0
     ventana.after(15,update)
     
