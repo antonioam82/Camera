@@ -22,7 +22,6 @@ def get_frame():
     else:
         return(verif, None)
                    
-    
 ventana = Tk()
 ventana.title("Camri")
 ventana.resizable(0,0)
@@ -31,10 +30,6 @@ ventana['bg']='black'
 vid = cv2.VideoCapture(0)
 ima_w = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
 ima_h = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
-if vid.isOpened():
-    isTrue,frame = vid.read()
-    print(isTrue)
-    print(frame)
 
 #ELEMENTOS.
 label = Label(ventana,text="CAM",font = 15,bg ='blue',fg ='white')
