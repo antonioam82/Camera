@@ -42,14 +42,14 @@ vid = cv2.VideoCapture(0)
 
 if vid.isOpened():
     ventana = Tk()
-    ventana.title("Camri")
+    ventana.title("CAMERA")
     ventana['bg']='black'
     ventana.resizable(0,0)
     ima_w = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
     ima_h = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
     
     #ELEMENTOS.
-    label = Label(ventana,text="CAM",font = 15,bg ='blue',fg ='white')
+    label = Label(ventana,text="CAMRI",font = 15,bg ='blue',fg ='white')
     label.pack(side=TOP,fill=BOTH)
     canvas = Canvas(ventana,bg ='red',width=ima_w,height=ima_h)
     canvas.pack()
@@ -62,5 +62,6 @@ if vid.isOpened():
     ventana.mainloop()
 else:
     print("CAMARA NO DISPONIBLE")
-    #messagebox.showwarning("CAMARA NO DISPONIBLE","La camara no se encuentra
+
+
 
