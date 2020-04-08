@@ -11,6 +11,17 @@ def visor():
     photo = ImageTk.PhotoImage(image=Image.fromarray(real_color))
     canvas.create_image(0,0,image=photo,anchor=NW)#0,0
     ventana.after(15,visor)
+
+def get_frame():
+    if vid.isOpened():
+        verif, frame = vid.read()
+        if verif:
+            return(verif, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        else:
+            return(verif, None)
+    else:
+        return(verif, None)
+                   
     
 ventana = Tk()
 ventana.title("Camri")
@@ -20,6 +31,10 @@ ventana['bg']='black'
 vid = cv2.VideoCapture(0)
 ima_w = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
 ima_h = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+if vid.isOpened():
+    isTrue,frame = vid.read()
+    print(isTrue)
+    print(frame)
 
 #ELEMENTOS.
 label = Label(ventana,text="CAM",font = 15,bg ='blue',fg ='white')
