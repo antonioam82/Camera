@@ -21,7 +21,16 @@ def get_frame():
             return(verif, None)
     else:
         return(verif, None)
+
+def captura():
+    ver,frame = get_frame()
+    if ver:
+        image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
+        cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+        print("OK")
+        
                    
+    
 ventana = Tk()
 ventana.title("Camri")
 ventana.resizable(0,0)
@@ -37,9 +46,10 @@ label.pack(side=TOP,fill=BOTH)
 canvas = Canvas(ventana,bg ='red',width=ima_w,height=ima_h)
 canvas.pack()
 btnScreenshot = Button(ventana,text="Screenshot",width=30,bg='goldenrod2',
-                    activebackground='red')
+                    activebackground='red',command=captura)
 btnScreenshot.pack(anchor=CENTER,expand=True)
 visor()
 ventana.mainloop()
+
 
 
