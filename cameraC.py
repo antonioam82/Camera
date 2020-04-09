@@ -5,9 +5,6 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import time
-import os
-
-os.chdir(r'C:\Users\Antonio\Documents\AAM images')
 
 class App:
     def __init__(self,font_video=0):
@@ -60,7 +57,7 @@ class VideoCaptura:
             return(verif,None)
             
     def __del__(self):
-        print("heue")
+        #print("OK")
         if self.vid.isOpened():
             self.vid.release()
                 
