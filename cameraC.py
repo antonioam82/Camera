@@ -5,6 +5,9 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import time
+import os
+
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
 
 class App:
     def __init__(self):
@@ -12,9 +15,7 @@ class App:
         self.ventana = Tk()
         self.ventana.title(self.appName)
         self.ventana['bg']='black'
-        #self.font_vid=font_vid
 
-        #self.vid=VideoCaptura()#!!!!!!!!!!!!!!!!!!!!!!!!!
         self.vid=cv2.VideoCapture(0)
         ima_w=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
         ima_h=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -30,9 +31,10 @@ class App:
         self.ventana.mainloop()
     def captura(self):
         ver,frame=self.get_frame()
-        if ver():
+        if ver:
             image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
             cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+            
     def visor(self):
         global photo
         ret, frame = self.vid.read()
@@ -41,25 +43,15 @@ class App:
         self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
         self.ventana.after(15,self.visor)
 
-class VideoCaptura:
-    def __init__(self):
-        self.vid = cv2.VideoCapture()
-        if not self.vid.isOpened():
-            raise ValueError("No se puede usar esta camara")
-
-        def get_frame(self):
-            if self.vid.isOpened():
-                verif, frame = self.vid.read()
-                if verif:
-                    return(verif,cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-                else:
-                    return(verif, None)
+    def get_frame(self):
+        if self.vid.isOpened():
+            verif, frame = self.vid.read()
+            if verif:
+                return(verif,cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             else:
                 return(verif, None)
-            
-        def __del__(self):
-            if self.vid.isOpened():
-                self.vid.release()
+        else:
+            return(verif, None)
                 
 if __name__=="__main__":
     App()
