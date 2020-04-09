@@ -33,7 +33,6 @@ class App:
             cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
             
     def visor(self):
-        global photo
         ret, frame = self.vid.read()
         self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         self.photo = ImageTk.PhotoImage(image=Image.fromarray(self.real_color))
