@@ -4,6 +4,7 @@ from tkinter import messagebox
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
+import threading
 import time
 import os
 
@@ -28,7 +29,7 @@ class App:
                     activebackground='red')
         self.btnScreenshot.pack(side=RIGHT)#anchor=NE,expand=True)
         self.btnRecord = Button(self.ventana,text='Record',width=30,bg='red',
-                                fg='white',command=self.record).pack(side=LEFT)
+                                fg='white',command=self.inicia).pack(side=LEFT)
         self.visor()
         self.ventana.mainloop()
         
@@ -39,12 +40,15 @@ class App:
             cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
             
     def visor(self):
-        #ret, frame = self.vid.read()
-        ret, frame =self.vid.get_frame()
+        ret, frame=self.vid.get_frame()
         #self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
         self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
         self.ventana.after(15,self.visor)
+
+    def inicia(self):
+        t = threading.Thread(target=self.record)
+        t.start()
 
     def record(self):
         print("Grabando")
@@ -54,7 +58,6 @@ class App:
             self.out.write(frame)
             self.ventana.after(15,self.record)
 
-            
 
 class VideoCaptura:
     def __init__(self,font_video=0):
