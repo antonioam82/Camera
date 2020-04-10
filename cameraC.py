@@ -21,7 +21,9 @@ class App:
         self.canvas.pack()
         self.btnScreenshot = Button(self.ventana,text="Screenshot",width=30,bg='goldenrod2',
                     activebackground='red',command=self.captura)
-        self.btnScreenshot.pack(anchor=CENTER,expand=True)
+        self.btnScreenshot.pack(side=RIGHT)#anchor=NE,expand=True)
+        self.btnRecord = Button(self.ventana,text='Record',width=30,bg='red',
+                                fg='white').pack(side=LEFT)
         self.visor()
         self.ventana.mainloop()
     def captura(self):
