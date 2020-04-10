@@ -6,9 +6,6 @@ import numpy as np
 from PIL import Image, ImageTk
 import threading
 import time
-import os
-
-os.chdir(r'C:\Users\Antonio\Documents\AAM images')
 
 class App:
     def __init__(self,font_video=0):
