@@ -5,6 +5,9 @@ import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import time
+import os
+
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
 
 class App:
     def __init__(self,font_video=0):
@@ -33,8 +36,8 @@ class App:
     def visor(self):
         #ret, frame = self.vid.read()
         ret, frame =self.vid.get_frame()
-        self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        self.photo = ImageTk.PhotoImage(image=Image.fromarray(self.real_color))
+        #self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
         self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
         self.ventana.after(15,self.visor)
 
@@ -43,9 +46,9 @@ class VideoCaptura:
         self.vid = cv2.VideoCapture(font_video)
         if not self.vid.isOpened():
             raise ValueError("No se puede usar esta camara")
-            
         self.width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
         self.height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        
     def get_frame(self):
         if self.vid.isOpened():
             verif,frame=self.vid.read()
@@ -57,7 +60,7 @@ class VideoCaptura:
             return(verif,None)
             
     def __del__(self):
-        #print("OK")
+        print("OK")
         if self.vid.isOpened():
             self.vid.release()
                 
