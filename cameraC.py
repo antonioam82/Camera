@@ -1,10 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
+#from tkinter import filedialog
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import threading
 import time
+import os
+
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
 
 class App:
     def __init__(self,font_video=0):
@@ -24,9 +28,10 @@ class App:
         self.canvas.pack()
         self.btnScreenshot = Button(self.ventana,text="Screenshot",width=30,bg='goldenrod2',
                     activebackground='red')
-        self.btnScreenshot.pack(side=RIGHT)#anchor=NE,expand=True)
+        self.btnScreenshot.pack(side=RIGHT)
         self.btnRecord = Button(self.ventana,text='Record',width=30,bg='red',
-                                fg='white',command=self.record).pack(side=LEFT)
+                                fg='white',command=self.record)
+        self.btnRecord.pack(side=LEFT)
         self.visor()
         self.ventana.mainloop()
         
@@ -50,10 +55,10 @@ class App:
     def record(self):
         if self.recording == False:
             self.recording = True
-            print("GRABANDO")
+            self.btnRecord.configure(text='Stop')
         else:
             self.recording = False
-            print("FIN")
+            self.btnRecord.configure(text='Record')
 
 
 class VideoCaptura:
