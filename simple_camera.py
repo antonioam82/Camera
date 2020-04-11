@@ -1,10 +1,7 @@
 from tkinter import *
-from tkinter import messagebox
-#from tkinter import filedialog
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
-import threading
 import time
 
 class App:
@@ -60,7 +57,6 @@ class VideoCaptura:
             return(verif,None)
         
 
-            
     def __del__(self):
         print("OK")
         if self.vid.isOpened():
@@ -68,3 +64,4 @@ class VideoCaptura:
                 
 if __name__=="__main__":
     App()
+
