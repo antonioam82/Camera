@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-#from tkinter import filedialog
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
@@ -47,15 +46,14 @@ class App:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 self.out.write(frame)
             self.ventana.after(15,self.visor)
-                
-
-    #def inicia(self):
-        #t = threading.Thread(target=self.record)
-        #t.start()
 
     def record(self):
-        print("Grabando")
-        self.recording=True
+        if self.recording == False:
+            self.recording = True
+            print("GRABANDO")
+        else:
+            self.recording = False
+            print("FIN")
 
 
 class VideoCaptura:
@@ -77,7 +75,6 @@ class VideoCaptura:
             return(verif,None)
         
 
-            
     def __del__(self):
         print("OK")
         if self.vid.isOpened():
