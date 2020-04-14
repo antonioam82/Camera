@@ -1,15 +1,32 @@
 from tkinter import *
 from tkinter import messagebox
+#from tkinter import filedialog
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
 import threading
 import time
+import os
+import glob
+
+if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
+    os.makedirs("CAMARA_VIDEOS")
+os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
+
+def future_file():
+    name = "output.avi"
+    count = 0
+    for i in glob.glob('*.avi'):
+        if "output" in i:
+            count+=1
+    if count>0:
+        name = "output"+"("+str(count)+")"+".avi"
+    return name
 
 class App:
     def __init__(self,font_video=0):
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        self.out = cv2.VideoWriter('output.avi',self.fourcc, 20.0, (640,480))
+        self.out = cv2.VideoWriter(future_file(),self.fourcc, 20.0, (640,480))
         self.appName = "camera"
         self.ventana = Tk()
         self.ventana.title(self.appName)
@@ -78,8 +95,8 @@ class VideoCaptura:
 
     def __del__(self):
         print("OK")
-        if self.vid.isOpened():
-            self.vid.release()
+        #if self.vid.isOpened():
+        self.vid.release()
             #self.out.release()
                 
 if __name__=="__main__":
