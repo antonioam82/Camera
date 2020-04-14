@@ -25,8 +25,10 @@ def future_file():
 
 class App:
     def __init__(self,font_video=0):
+        global name_file
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        self.out = cv2.VideoWriter(future_file(),self.fourcc, 20.0, (640,480))
+        name_file = future_file()
+        self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
         self.appName = "camera"
         self.ventana = Tk()
         self.ventana.title(self.appName)
@@ -66,12 +68,15 @@ class App:
             self.ventana.after(15,self.visor)
 
     def record(self):
+        global name_file
         if self.recording == False:
             self.recording = True
             self.btnRecord.configure(text='Stop')
         else:
             self.recording = False
             self.btnRecord.configure(text='Record')
+            name_file = future_file()
+            self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
 
 
 class VideoCaptura:
@@ -94,10 +99,10 @@ class VideoCaptura:
         
 
     def __del__(self):
+        if self.vid.isOpened():
+            self.vid.release()
+            os.remove(name_file)
         print("OK")
-        #if self.vid.isOpened():
-        self.vid.release()
-            #self.out.release()
-                
+
 if __name__=="__main__":
     App()
