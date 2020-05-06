@@ -9,6 +9,9 @@ import time
 import os
 import glob
 
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
+
+
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
 os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
@@ -79,9 +82,11 @@ class App:
         if self.recording == False:
             self.recording = True
             self.btnRecord.configure(text='Stop')
+            self.init_timer()
         else:
             self.recording = False
             self.btnRecord.configure(text='Record')
+            time.after_cancel(self.process)
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
 
@@ -90,18 +95,21 @@ class App:
             c="0"+str(c)
         return c
         
-    def cuenta():
-        time['text'] = str(self.formato(self.hours))+":"+str(self.formato(self.minuts))+":"+str(self.formato(self.seconds))
-        contador+=1
-        if contador==60:
-            contador=0
-            contador2+=1
-        if contador2==60:
-            contador2=0
-            contador1+=1
-        counter.after(1000, cuenta)    
+    def cuenta(self):
+        self.counter['text'] = str(self.formato(self.hours))+":"+str(self.formato(self.minuts))+":"+str(self.formato(self.seconds))
+        self.seconds+=1
+        if self.seconds==60:
+            self.seconds=0
+            self.minuts+=1
+        if self.minuts==60:
+            self.minuts=0
+            self.hours+=1
+        self.process=self.counter.after(1000,self.cuenta)
 
-
+    def init_timer(self):
+        t = threading.Thread(target=self.cuenta)
+        t.start()
+        
 class VideoCaptura:
     def __init__(self,font_video=0):
         self.vid = cv2.VideoCapture(font_video)
