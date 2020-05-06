@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-#from tkinter import filedialog
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
@@ -68,7 +67,6 @@ class App:
             
     def visor(self):
         ret, frame=self.vid.get_frame()
-        #self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         if ret:
             self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
             self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
@@ -86,7 +84,7 @@ class App:
         else:
             self.recording = False
             self.btnRecord.configure(text='Record')
-            time.after_cancel(self.process)
+            self.counter.after_cancel(self.process)
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
 
