@@ -28,6 +28,9 @@ class App:
         global name_file
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
         name_file = future_file()
+        self.hours = 0
+        self.minuts = 0
+        self.seconds = 0
         self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
         self.appName = "camera"
         self.ventana = Tk()
@@ -41,12 +44,16 @@ class App:
         
         self.canvas=Canvas(self.ventana,bg='red',width=self.vid.width,height=self.vid.height)
         self.canvas.pack()
-        self.btnScreenshot = Button(self.ventana,text="Screenshot",width=30,bg='goldenrod2',
+        self.btnScreenshot = Button(self.ventana,text="Screenshot",width=28,bg='goldenrod2',
                     activebackground='red')
-        self.btnScreenshot.pack(side=RIGHT)
-        self.btnRecord = Button(self.ventana,text='Record',width=30,bg='red',
+        self.btnRecord = Button(self.ventana,text='Record',width=29,bg='red',
                                 fg='white',command=self.record)
-        self.btnRecord.pack(side=LEFT)
+        self.btnRecord.pack(side=LEFT)        
+        self.btnScreenshot.pack(side=RIGHT)
+        self.counter = Label(self.ventana,text='00:00:00',bg='black',fg='red',width=27,height=2,font=('Arial',11))
+        self.counter.pack(side=LEFT)        
+
+
         self.visor()
         self.ventana.mainloop()
         
@@ -78,6 +85,22 @@ class App:
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
 
+    def formato(self,c):
+        if c<10:
+            c="0"+str(c)
+        return c
+        
+    def cuenta():
+        time['text'] = str(self.formato(self.hours))+":"+str(self.formato(self.minuts))+":"+str(self.formato(self.seconds))
+        contador+=1
+        if contador==60:
+            contador=0
+            contador2+=1
+        if contador2==60:
+            contador2=0
+            contador1+=1
+        counter.after(1000, cuenta)    
+
 
 class VideoCaptura:
     def __init__(self,font_video=0):
@@ -106,3 +129,4 @@ class VideoCaptura:
 
 if __name__=="__main__":
     App()
+
