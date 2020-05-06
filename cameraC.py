@@ -8,6 +8,9 @@ import time
 import os
 import glob
 
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
+
+
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
 os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
@@ -76,6 +79,7 @@ class App:
         global name_file
         if self.recording == False:
             self.recording = True
+            self.clear_timer()
             self.btnRecord.configure(text='Stop')
             self.init_timer()
         else:
@@ -89,6 +93,11 @@ class App:
         if c<10:
             c="0"+str(c)
         return c
+
+    def clear_timer(self):
+        self.hours=0
+        self.minuts=0
+        self.seconds=0
         
     def cuenta(self):
         self.counter['text'] = str(self.formato(self.hours))+":"+str(self.formato(self.minuts))+":"+str(self.formato(self.seconds))
