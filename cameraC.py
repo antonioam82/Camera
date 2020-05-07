@@ -1,12 +1,18 @@
 from tkinter import *
 from tkinter import messagebox
 import cv2
+from mhmovie.code import *
+import wave
+import pyaudio
 import numpy as np
 from PIL import Image, ImageTk
 import threading
 import time
 import os
 import glob
+
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
+
 
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
@@ -77,8 +83,9 @@ class App:
         if self.recording == False:
             self.recording = True
             self.clear_timer()
-            self.btnRecord.configure(text='Stop')
             self.init_timer()
+            self.btnRecord.configure(text='Stop')
+            
         else:
             self.recording = False
             self.btnRecord.configure(text='Record')
@@ -105,7 +112,7 @@ class App:
         if self.minuts==60:
             self.minuts=0
             self.hours+=1
-        self.process=self.counter.after(1000,self.cuenta)
+        self.process=self.counter.after(100,self.cuenta)
 
     def init_timer(self):
         t = threading.Thread(target=self.cuenta)
@@ -138,4 +145,5 @@ class VideoCaptura:
 
 if __name__=="__main__":
     App()
+
 
