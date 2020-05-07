@@ -11,6 +11,9 @@ import time
 import os
 import glob
 
+os.chdir(r'C:\Users\Antonio\Documents\AAM images')
+
+
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
 os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
@@ -29,11 +32,12 @@ class App:
     def __init__(self,font_video=0):
         global name_file
         self.fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
         name_file = future_file()
         self.hours = 0
         self.minuts = 0
         self.seconds = 0
-        self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
+        
         self.appName = "camera"
         self.ventana = Tk()
         self.ventana.title(self.appName)
