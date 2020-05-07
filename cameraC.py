@@ -41,7 +41,16 @@ class CameraApp():
         self.counter = Label(self.root,text='00:00:00',bg='black',fg='red',width=27,height=2,font=('Arial',11))
         self.counter.pack(side=LEFT)
 
+    def visor(self):
+        ret, frame = self.vid.get_frame()
+        if ret:
+            self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
+            self.canvas.create_image(0,0,image=self.photo,anchor=NW)
+
+            self.root.after(15,self.visor)
+
         self.root.mainloop()
+
 
 class VideoCaptura:
     def __init__(self,font_video=0):
@@ -62,6 +71,5 @@ class VideoCaptura:
 
 if __name__=="__main__":
     CameraApp()
-
 
 
