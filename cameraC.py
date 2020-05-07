@@ -47,6 +47,18 @@ class VideoCaptura:
     def __init__(self,font_video=0):
         self.vid = cv2.VideoCapture(font_video)
 
+    def get_frame(self):
+        if self.vei.isOpened():
+            self.vid.read()
+            if verif:
+                return(verif,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+            else:
+                return(verif,None)
+        else:
+            return(verif,None)
+              
+                       
+
 
 if __name__=="__main__":
     CameraApp()
