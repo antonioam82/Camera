@@ -13,7 +13,7 @@ import os
 
 class CameraApp():
 
-    def __init__(self):
+    def __init__(self,font_video=0):
 
         self.fourcc = cv2.VideoWriter_fourcc(*'MJPG')
         self.name_file = "output.avi"
@@ -27,7 +27,7 @@ class CameraApp():
         self.root = Tk()
         self.root.title(self.appName)
         self.root['bg']='black'
-        #self.font_video = self.font_video
+        self.font_video = self.font_video
 
         self.label=Label(self.root,text=self.appName,font=15,bg='blue',
                          fg='white').pack(side=TOP,fill=BOTH)
