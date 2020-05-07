@@ -27,8 +27,8 @@ class CameraApp():
         self.root = Tk()
         self.root.title(self.appName)
         self.root['bg']='black'
-        self.font_video = self.font_video
-
+        self.font_video = font_video
+        self.vid=VideoCaptura(self.font_video)
         self.label=Label(self.root,text=self.appName,font=15,bg='blue',
                          fg='white').pack(side=TOP,fill=BOTH)
         
@@ -42,6 +42,10 @@ class CameraApp():
         self.counter.pack(side=LEFT)
 
         self.root.mainloop()
+
+class VideoCaptura:
+    def __init__(self,font_video=0):
+        self.vid = cv2.VideoCapture(font_video)
 
 
 if __name__=="__main__":
