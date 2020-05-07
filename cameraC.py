@@ -11,9 +11,6 @@ import time
 import os
 import glob
 
-os.chdir(r'C:\Users\Antonio\Documents\AAM images')
-
-
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
 os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
