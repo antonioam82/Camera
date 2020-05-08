@@ -28,11 +28,11 @@ class CameraApp():
         self.root.title(self.appName)
         self.root['bg']='black'
         self.font_video = font_video
-        self.vid=VideoCaptura(self.font_video)
+        
         self.label=Label(self.root,text=self.appName,font=15,bg='blue',
                          fg='white').pack(side=TOP,fill=BOTH)
         
-        self.canvas=Canvas(self.root,bg='black',width=self.vid.width,height=self.vid.height)
+        self.canvas=Canvas(self.root,bg='black')
         self.canvas.pack()
         self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white')
         self.btnRecord = Button(self.root,text='Record',width=29,bg='green',fg='white')
@@ -41,8 +41,8 @@ class CameraApp():
         self.counter = Label(self.root,text='00:00:00',bg='black',fg='red',width=27,height=2,font=('Arial',11))
         self.counter.pack(side=LEFT)
 
-        self.visor()
-
+        self.init_camera()
+            
         self.root.mainloop()
 
     def record_state(self):
@@ -52,20 +52,22 @@ class CameraApp():
             self.recording = False
         
     def visor(self):
-        ret, frame = self.vid.get_frame()
-        if ret:
-            self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
-            self.canvas.create_image(0,0,image=self.photo,anchor=NW)
+        if self.vid.isOpened():
+            ret, frame = self.get_frame()
+            if ret:
+                self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
+                self.canvas.create_image(0,0,image=self.photo,anchor=NW)
+                self.root.after(15,self.visor)
 
-            self.root.after(15,self.visor)
-
-class VideoCaptura:
-    def __init__(self,font_video=0):
-        self.vid = cv2.VideoCapture(font_video)
-        if not self.vid.isOpened():
-            raise ValueError("No se puede usar esta camara")
-        self.width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
-        self.height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    def init_camera(self):
+        self.vid=cv2.VideoCapture(self.font_video)
+        if self.vid.isOpened():
+            self.width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+            self.height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+            self.canvas.configure(width=self.width,height=self.height)
+            self.visor()
+        else:
+            messagebox.showwarning("CAMARA NO DISPONIBLE","El dispositivo no está activado o disponible")
         
     def get_frame(self):
         if self.vid.isOpened():
@@ -80,5 +82,6 @@ class VideoCaptura:
               
 if __name__=="__main__":
     CameraApp()
+
 
 
