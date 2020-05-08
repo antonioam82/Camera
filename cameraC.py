@@ -82,11 +82,9 @@ class VideoCaptura:
                 return(verif,None)
         else:
             return(verif,None)
-              
-                       
-
-
-if __name__=="__main__":
+               
+            
+ if __name__=="__main__":
     CameraApp()
 
 
