@@ -41,6 +41,8 @@ class CameraApp():
         self.counter = Label(self.root,text='00:00:00',bg='black',fg='red',width=27,height=2,font=('Arial',11))
         self.counter.pack(side=LEFT)
 
+        self.root.mainloop()        
+
     def visor(self):
         ret, frame = self.vid.get_frame()
         if ret:
@@ -49,7 +51,7 @@ class CameraApp():
 
             self.root.after(15,self.visor)
 
-        self.root.mainloop()
+
 
 
 class VideoCaptura:
