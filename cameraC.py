@@ -32,7 +32,7 @@ class CameraApp():
         self.label=Label(self.root,text=self.appName,font=15,bg='blue',
                          fg='white').pack(side=TOP,fill=BOTH)
         
-        self.canvas=Canvas(self.root,bg='black')
+        self.canvas=Canvas(self.root,bg='black',width=self.vid.width,height=self.vid.height)
         self.canvas.pack()
         self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white')
         self.btnRecord = Button(self.root,text='Record',width=29,bg='green',fg='white')
@@ -53,12 +53,25 @@ class CameraApp():
 
             self.root.after(15,self.visor)
 
-
-
-
 class VideoCaptura:
     def __init__(self,font_video=0):
         self.vid = cv2.VideoCapture(font_video)
+        if not self.vid.isOpened():
+            raise ValueError("No se puede usar esta camara")
+        self.width=self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+        self.height=self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        
+    def get_frame(self):
+        if self.vid.isOpened():
+            verif,frame=self.vid.read()
+            if verif:
+                return(verif,cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+            else:
+                return(verif,None)
+        else:
+            return(verif,None)
+                                  
+        
 
     def get_frame(self):
         if self.vid.isOpened():
@@ -75,6 +88,5 @@ class VideoCaptura:
 
 if __name__=="__main__":
     CameraApp()
-
 
 
