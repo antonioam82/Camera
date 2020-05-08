@@ -76,16 +76,7 @@ class VideoCaptura:
                 return(verif,None)
         else:
             return(verif,None)
-                                  
-    def get_frame(self):
-        if self.vid.isOpened():
-            verif, frame=self.vid.read()
-            if verif:
-                return(verif,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
-            else:
-                return(verif,None)
-        else:
-            return(verif,None)
+
               
 if __name__=="__main__":
     CameraApp()
