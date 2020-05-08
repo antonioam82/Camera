@@ -20,9 +20,9 @@ class CameraApp():
         self.out = cv2.VideoWriter(self.name_file,self.fourcc, 20.0, (640,480))
         #name_file = future_file()
         self.recording=False
-        self.hours=0
-        self.minuts=0
-        self.seconds=0
+        #self.hours=0
+        #self.minuts=0
+        #self.seconds=0
         self.appName = "Video Recorder"
         self.root = Tk()
         self.root.title(self.appName)
