@@ -62,7 +62,7 @@ class VideoCaptura:
 
     def get_frame(self):
         if self.vid.isOpened():
-            self.vid.read()
+            verif, frame=self.vid.read()
             if verif:
                 return(verif,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
             else:
@@ -75,5 +75,6 @@ class VideoCaptura:
 
 if __name__=="__main__":
     CameraApp()
+
 
 
