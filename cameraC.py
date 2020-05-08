@@ -19,7 +19,7 @@ class CameraApp():
         self.name_file = "output.avi"
         self.out = cv2.VideoWriter(self.name_file,self.fourcc, 20.0, (640,480))
         #name_file = future_file()
-        
+        self.recording=False
         self.hours=0
         self.minuts=0
         self.seconds=0
@@ -43,8 +43,14 @@ class CameraApp():
 
         self.visor()
 
-        self.root.mainloop()        
+        self.root.mainloop()
 
+    def record_state(self):
+        if self.recording == False:
+            self.recording = True
+        else:
+            self.recording = False
+        
     def visor(self):
         ret, frame = self.vid.get_frame()
         if ret:
@@ -71,8 +77,6 @@ class VideoCaptura:
         else:
             return(verif,None)
                                   
-        
-
     def get_frame(self):
         if self.vid.isOpened():
             verif, frame=self.vid.read()
@@ -82,8 +86,7 @@ class VideoCaptura:
                 return(verif,None)
         else:
             return(verif,None)
-               
-            
+              
 if __name__=="__main__":
     CameraApp()
 
