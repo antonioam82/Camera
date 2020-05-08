@@ -41,6 +41,8 @@ class CameraApp():
         self.counter = Label(self.root,text='00:00:00',bg='black',fg='red',width=27,height=2,font=('Arial',11))
         self.counter.pack(side=LEFT)
 
+        self.visor()
+
         self.root.mainloop()        
 
     def visor(self):
@@ -59,7 +61,7 @@ class VideoCaptura:
         self.vid = cv2.VideoCapture(font_video)
 
     def get_frame(self):
-        if self.vei.isOpened():
+        if self.vid.isOpened():
             self.vid.read()
             if verif:
                 return(verif,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
