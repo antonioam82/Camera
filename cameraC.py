@@ -34,7 +34,7 @@ class CameraApp():
         
         self.canvas=Canvas(self.root,bg='black')
         self.canvas.pack()
-        self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white')
+        self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white',command=captura)
         self.btnRecord = Button(self.root,text='Record',width=29,bg='green',fg='white')
         self.btnRecord.pack(side=LEFT)        
         self.btnScreenshot.pack(side=RIGHT)
@@ -50,6 +50,12 @@ class CameraApp():
             self.recording = True
         else:
             self.recording = False
+
+    def captura(self):
+        ver,frame=self.vid.get_frame()
+        if ver:
+            image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
+            cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
         
     def visor(self):
         if self.vid.isOpened():
@@ -82,6 +88,7 @@ class CameraApp():
               
 if __name__=="__main__":
     CameraApp()
+
 
 
 
