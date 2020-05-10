@@ -52,7 +52,7 @@ class CameraApp():
             self.recording = False
 
     def captura(self):
-        ver,frame=self.vid.get_frame()
+        ver,frame=self.get_frame()
         if ver:
             image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
             cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
