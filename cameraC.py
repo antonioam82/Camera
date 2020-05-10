@@ -34,7 +34,7 @@ class CameraApp():
         
         self.canvas=Canvas(self.root,bg='black')
         self.canvas.pack()
-        self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white',command=captura)
+        self.btnScreenshot = Button(self.root,text="Screenshot",width=28,bg='green',fg='white',command=self.captura)
         self.btnRecord = Button(self.root,text='Record',width=29,bg='green',fg='white')
         self.btnRecord.pack(side=LEFT)        
         self.btnScreenshot.pack(side=RIGHT)
