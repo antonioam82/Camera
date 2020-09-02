@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-#from tkinter import filedialog
 import cv2
+from mhmovie.code import *
 import numpy as np
 from PIL import Image, ImageTk
 import threading
@@ -68,7 +68,6 @@ class App:
             
     def visor(self):
         ret, frame=self.vid.get_frame()
-        #self.real_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         if ret:
             self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))
             self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
@@ -81,14 +80,44 @@ class App:
         global name_file
         if self.recording == False:
             self.recording = True
+            self.clear_timer()
+            self.init_timer()
             self.btnRecord.configure(text='Stop')
+            
         else:
             self.recording = False
             self.btnRecord.configure(text='Record')
+            self.counter.after_cancel(self.process)
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
+            #VideoCaptura()
 
+    def formato(self,c):
+        if c<10:
+            c="0"+str(c)
+        return c
 
+    def clear_timer(self):
+        self.hours=0
+        self.minuts=0
+        self.seconds=0
+        
+    def cuenta(self):
+        self.counter['text'] = str(self.formato(self.hours))+":"+str(self.formato(self.minuts))+":"+str(self.formato(self.seconds))
+        
+        if self.seconds==60:
+            self.seconds=0
+            self.minuts+=1
+        if self.minuts==60:
+            self.minuts=0
+            self.hours+=1
+        self.seconds+=1
+        self.process=self.counter.after(1000,self.cuenta)
+
+    def init_timer(self):
+        t = threading.Thread(target=self.cuenta)
+        t.start()
+        
 class VideoCaptura:
     def __init__(self,font_video=0):
         self.vid = cv2.VideoCapture(font_video)
