@@ -38,7 +38,7 @@ class App:
         self.ventana['bg']='black'
         self.font_video=font_video
         self.recording=False
-        self.vid=VideoCaptura(self.font_video)#!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.vid=VideoCaptura(self.font_video)
         self.flip = False
         self.label=Label(self.ventana,text=self.appName,font=15,bg='blue',
                          fg='white').pack(side=TOP,fill=BOTH)
@@ -103,6 +103,7 @@ cierrela e intentelo de nuevo.""")
             self.counter.after_cancel(self.process)
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
+            #VideoCaptura()
 
     def formato(self,c):
         if c<10:
@@ -157,6 +158,5 @@ class VideoCaptura:
 
 if __name__=="__main__":
     App()
-
 
 
