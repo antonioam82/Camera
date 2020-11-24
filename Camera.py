@@ -48,7 +48,7 @@ class App:
         self.btnFlip = Button(self.ventana,text="FLIP",width=5,bg="black",fg="light green",command=self.flipping)
         self.btnFlip.pack(side=LEFT)
         
-        self.canvas=Canvas(self.ventana,bg='red',width=self.vid.width,height=self.vid.height)
+        self.canvas=Canvas(self.ventana,bg='gray7',width=self.vid.width,height=self.vid.height)
         self.canvas.pack()
         self.btnScreenshot = Button(self.ventana,text="Photo",width=28,bg='goldenrod2',
                     activebackground='red',command=self.captura)
@@ -88,6 +88,9 @@ class App:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)#frame
                 self.out.write(frame)#frame
             self.ventana.after(15,self.visor)
+        else:
+            messagebox.showwarning("CAMARA NO DISPONIBLE","""La camara está siendo utilizada por otra aplicación,
+cierrela e intentelo de nuevo.""")
 
     def record(self):
         global name_file
@@ -142,7 +145,6 @@ class VideoCaptura:
     def get_frame(self):
         if self.vid.isOpened():
             verif,frame=self.vid.read()
-            inverted=cv2.flip(frame,0)#####################################
             if verif:
                 return(verif,cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))#verif
             else:
