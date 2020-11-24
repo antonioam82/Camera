@@ -103,7 +103,6 @@ cierrela e intentelo de nuevo.""")
             self.counter.after_cancel(self.process)
             name_file = future_file()
             self.out = cv2.VideoWriter(name_file,self.fourcc, 20.0, (640,480))
-            #VideoCaptura()
 
     def formato(self,c):
         if c<10:
