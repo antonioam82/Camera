@@ -45,6 +45,8 @@ class App:
         self.btnFlip = Button(self.ventana,text="FLIP",width=5,bg="black",fg="light green",command=self.flipping)
         self.btnFlip.pack(side=LEFT)
         
+        #self.btnFlip.place(x=0,y=70)
+        
         self.canvas=Canvas(self.ventana,bg='gray7',width=self.vid.width,height=self.vid.height)
         self.canvas.pack()
         self.btnScreenshot = Button(self.ventana,text="Photo",width=28,bg='goldenrod2',
@@ -65,24 +67,28 @@ class App:
             self.flip = True
         else:
             self.flip = False
+
+    def flipped(self):
+        if self.flip == True:
+            flip = cv2.flip(self.frame,1)
+            self.frame = flip
         
     def captura(self):
-        ver,frame=self.vid.get_frame()
+        ver,self.frame=self.vid.get_frame()
+        self.flipped()
         if ver:
             image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
-            cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+            cv2.imwrite(image,cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB))
             self.counter.config(text=image)
             
     def visor(self):
-        ret, frame=self.vid.get_frame()
-        if self.flip == True:
-            flip = cv2.flip(frame,1)
-            frame = flip
+        ret,self.frame=self.vid.get_frame()
+        self.flipped()
         if ret:
-            self.photo = ImageTk.PhotoImage(image=Image.fromarray(frame))#frame
+            self.photo = ImageTk.PhotoImage(image=Image.fromarray(self.frame))#frame
             self.canvas.create_image(0,0,image=self.photo,anchor=NW)#0,0
             if self.recording == True:
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)#frame
+                frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)#frame
                 self.out.write(frame)#frame
             self.ventana.after(15,self.visor)
         else:
